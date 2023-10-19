@@ -131,14 +131,14 @@
     <ClCompile Include="Keeper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="TrueHero.cpp" />
+    <ClCompile Include="Hero.cpp" />
     <ClCompile Include="Villain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseHero.h" />
     <ClInclude Include="Keeper.h" />
     <ClInclude Include="Monster.h" />
-    <ClInclude Include="TrueHero.h" />
+    <ClInclude Include="Hero.h" />
     <ClInclude Include="Villain.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
