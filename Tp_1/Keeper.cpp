@@ -10,6 +10,27 @@ Keeper::Keeper() {
     std::cout << "Keeper constructor called" << std::endl;
 }
 
+Keeper::Keeper(int initialCapacity) : capacity(initialCapacity), size(0) {
+    objects = new BaseHero * [capacity];
+}
+
+// Конструктор копирования
+Keeper::Keeper(const Keeper& other) : capacity(other.capacity), size(other.size) {
+    objects = new BaseHero * [capacity];
+    for (int i = 0; i < size; i++) {
+        // Создаем копии объектов в массиве
+        if (other.objects[i]->GetType() == CharacterType::TypeHero) {
+            objects[i] = new Hero(*dynamic_cast<Hero*>(other.objects[i]));
+        }
+        else if (other.objects[i]->GetType() == CharacterType::TypeVillain) {
+            objects[i] = new Villain(*dynamic_cast<Villain*>(other.objects[i]));
+        }
+        else if (other.objects[i]->GetType() == CharacterType::TypeMonster) {
+            objects[i] = new Monster(*dynamic_cast<Monster*>(other.objects[i]));
+        }
+    }
+}
+
 Keeper::~Keeper() {
     for (int i = 0; i < size; i++) {
         delete objects[i];

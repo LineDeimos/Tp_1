@@ -7,6 +7,8 @@
 class Keeper {
 public:
     Keeper();
+    Keeper(int initialCapacity);
+    Keeper(const Keeper& other);
     ~Keeper();
 
     void AddObjectHero(Hero* obj);
