@@ -16,6 +16,7 @@ public:
     void SaveToFile(const std::string& filename);
     void LoadFromFile(const std::string& filename);
     void DisplayAll() const;
+    void Clear();
 
 private:
     BaseHero** objects;  // Динамический массив указателей

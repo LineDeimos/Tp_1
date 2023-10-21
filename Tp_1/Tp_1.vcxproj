@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BaseHero.cpp" />
+    <ClCompile Include="FileExceptions.cpp" />
     <ClCompile Include="Keeper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -136,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BaseHero.h" />
+    <ClInclude Include="FileExceptions.h" />
     <ClInclude Include="Keeper.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Hero.h" />

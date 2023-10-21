@@ -8,5 +8,7 @@ private:
 public:
     Monster(const std::string& name, const std::string& desc);
 
+    std::string GetAppearanceDescription();
+
     void DisplayInfo() const override;
 };

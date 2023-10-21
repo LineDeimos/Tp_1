@@ -1,6 +1,7 @@
 #include "Keeper.h"
 #include <iostream>
 #include <fstream>
+#include "FileExceptions.h"
 
 Keeper::Keeper() {
     capacity = 10;  // Начальная емкость массива
@@ -42,8 +43,7 @@ void Keeper::AddObjectMonster(Monster* obj) {
 }
 
 void Keeper::AddObjectVillain(Villain* obj) {
-    /*if (size == capacity) {
-        // Увеличиваем емкость массива при необходимости
+    if (size == capacity) {
         Resize(capacity * 2);
     }
 
@@ -51,7 +51,7 @@ void Keeper::AddObjectVillain(Villain* obj) {
         objects[size] = obj;
         size++;
         std::cout << "Object added: " << obj->GetName() << std::endl;
-    }*/
+    }
 }
 
 void Keeper::RemoveObject(const std::string& name) {
@@ -75,11 +75,96 @@ void Keeper::RemoveObject(const std::string& name) {
 }
 
 void Keeper::SaveToFile(const std::string& filename) {
-    
+    std::ofstream file(filename, std::ios::out | std::ios::trunc);
+    if (!file.is_open()) {
+        throw FileOpenException(filename); // Генерируем исключение при ошибке открытия файла
+    }
+
+    file << size << std::endl; // Записываем количество объектов
+
+    for (int i = 0; i < size; i++) {
+        file << CharacterTypeToInt(objects[i]->GetType()) << std::endl; // Записываем тип объекта
+        file << objects[i]->GetName() << std::endl; // Записываем имя
+        file << objects[i]->GetWeapon() << std::endl; // Записываем оружие
+
+        const std::string* skills = objects[i]->GetSkills();
+        int numSkills = objects[i]->GetNumSkills();
+        file << numSkills << std::endl; // Записываем количество навыков
+
+        for (int j = 0; j < numSkills; j++) {
+            file << skills[j] << std::endl; // Записываем навыки
+        }
+
+        // Дополнительные поля для Villain
+        if (objects[i]->GetType() == CharacterType::TypeVillain) {
+            Villain* villain = dynamic_cast<Villain*>(objects[i]);
+            file << villain->GetCrime() << std::endl; // Записываем злодеяние
+            file << villain->GetLocation() << std::endl; // Записываем место обитания
+        }
+
+        // Дополнительные поля для Monster
+        if (objects[i]->GetType() == CharacterType::TypeMonster) {
+            Monster* monster = dynamic_cast<Monster*>(objects[i]);
+            file << monster->GetAppearanceDescription() << std::endl; // Записываем описание внешнего вида
+        }
+    }
+
+    file.close();
+
+    std::cout << "Data saved successfully\n";
 }
 
 void Keeper::LoadFromFile(const std::string& filename) {
+    Clear(); // Очищаем текущие данные
 
+    std::ifstream file(filename);
+    if (!file.is_open()) {
+        throw FileOpenException(filename); // Генерируем исключение при ошибке открытия файла
+    }
+
+    int numObjects;
+    file >> numObjects;
+    file.ignore(); // Пропускаем символ новой строки
+
+    for (int i = 0; i < numObjects; i++) {
+        int characterTypeValue;
+        file >> characterTypeValue;
+        CharacterType characterType = IntToCharacterType(characterTypeValue);
+
+        std::string name, weapon;
+        file.ignore(); // Пропускаем символ новой строки
+
+        std::getline(file, name);
+        std::getline(file, weapon);
+
+        int numSkills;
+        file >> numSkills;
+        file.ignore(); // Пропускаем символ новой строки
+
+        std::string* skills = new std::string[numSkills];
+        for (int j = 0; j < numSkills; j++) {
+            std::getline(file, skills[j]);
+        }
+
+        if (characterType == CharacterType::TypeVillain) {
+            std::string crime, location;
+            std::getline(file, crime);
+            std::getline(file, location);
+            AddObjectVillain(new Villain(name, weapon, crime, location, skills, numSkills));
+        }
+        else if (characterType == CharacterType::TypeMonster) {
+            std::string appearanceDescription;
+            std::getline(file, appearanceDescription);
+            AddObjectMonster(new Monster(name, appearanceDescription));
+        }
+        else {
+            AddObjectHero(new Hero(name, weapon, skills, numSkills));
+        }
+
+        delete[] skills; // Освобождаем память, выделенную для навыков
+    }
+
+    file.close();
 }
 
 void Keeper::DisplayAll() const {
@@ -87,6 +172,17 @@ void Keeper::DisplayAll() const {
         objects[i]->DisplayInfo();
         std::cout << '\n';
     }
+}
+
+void Keeper::Clear()
+{
+    for (int i = 0; i < size; i++) {
+        delete objects[i];
+    }
+    delete[] objects;
+    capacity = 10;
+    objects = new BaseHero* [capacity];
+    size = 0;
 }
 
 void Keeper::Resize(int newCapacity) {

@@ -62,7 +62,7 @@ int main() {
             break;
         }
         case 3: {
-            /*std::string name, weapon;
+            std::string name, weapon, crime, location;
             std::string skills[MAX_SKILLS];
             int numSkills = 0;
 
@@ -70,6 +70,10 @@ int main() {
             std::getline(std::cin, name);
             std::cout << "Enter weapon: ";
             std::getline(std::cin, weapon);
+            std::cout << "Enter crime: ";
+            std::getline(std::cin, crime);
+            std::cout << "Enter location: ";
+            std::getline(std::cin, location);
             std::cout << "Enter skills (one per line, empty line to finish, maximum " << MAX_SKILLS << " skills):\n";
 
             while (numSkills < MAX_SKILLS) {
@@ -82,8 +86,8 @@ int main() {
                 numSkills++;
             }
 
-            Base* obj = new Base(name, weapon, skills, numSkills);
-            keeper.AddObject(obj);*/
+            Villain* obj = new Villain(name, weapon, crime, location, skills, numSkills);
+            keeper.AddObjectVillain(obj);
             break;
         }
         case 4: {

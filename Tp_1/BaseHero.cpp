@@ -1,7 +1,7 @@
 #include "BaseHero.h"
 
-BaseHero::BaseHero(const std::string& name, const std::string& weapon, const std::string* skills, int numSkills)
-    : name(name), weapon(weapon), numSkills(numSkills) {
+BaseHero::BaseHero(const std::string& name, const std::string& weapon, const std::string* skills, int numSkills, CharacterType type)
+    : name(name), weapon(weapon), numSkills(numSkills), type(type) {
     if (numSkills > MAX_SKILLS) {
         std::cerr << "Too many skills specified for " << name << ". Maximum allowed: " << MAX_SKILLS << std::endl;
         numSkills = MAX_SKILLS;
@@ -27,4 +27,9 @@ const std::string* BaseHero::GetSkills() const {
 
 int BaseHero::GetNumSkills() const {
     return numSkills;
+}
+
+CharacterType BaseHero::GetType() const
+{
+    return type;
 }
