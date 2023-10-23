@@ -2,7 +2,9 @@
 #include <iostream>
 
 Villain::Villain(const std::string& name, const std::string& weapon, const std::string& crime, const std::string& location, const std::string* skills, int numSkills)
-    : BaseHero(name, weapon, skills, numSkills, CharacterType::TypeVillain), crime(crime), location(location) { }
+    : BaseHero(name, weapon, skills, numSkills, CharacterType::TypeVillain), crime(crime), location(location) { 
+    std::cout << "Villain constructor called" << std::endl;
+}
 
 std::string Villain::GetCrime()
 {

@@ -188,6 +188,25 @@ void Keeper::LoadFromFile(const std::string& filename) {
     file.close();
 }
 
+void Keeper::DisplayListOfObjects() const
+{
+    for (int i = 0; i < size; i++) {
+        std::cout << "- " << objects[i]->GetName();
+        std::cout << '\n';
+    }
+}
+
+void Keeper::DisplayOne(const std::string& name) const
+{
+    BaseHero* obj = FindObjectByName(name);
+    if (!obj) {
+        std::cout << "There is no object named " << name << "\n";
+        return;
+    }
+
+    obj->DisplayInfo();
+}
+
 void Keeper::DisplayAll() const {
     for (int i = 0; i < size; i++) {
         objects[i]->DisplayInfo();

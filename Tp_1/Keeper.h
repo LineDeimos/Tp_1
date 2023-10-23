@@ -17,6 +17,8 @@ public:
     void RemoveObject(const std::string& name);
     void SaveToFile(const std::string& filename);
     void LoadFromFile(const std::string& filename);
+    void DisplayListOfObjects() const;
+    void DisplayOne(const std::string& name) const;
     void DisplayAll() const;
     void Clear();
 

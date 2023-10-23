@@ -2,7 +2,9 @@
 #include <iostream>
 
 Monster::Monster(const std::string& name, const std::string& desc)
-    : BaseHero(name, "", nullptr, 0, CharacterType::TypeMonster), appearanceDescription(desc) { }
+    : BaseHero(name, "", nullptr, 0, CharacterType::TypeMonster), appearanceDescription(desc) { 
+    std::cout << "Monster constructor called" << std::endl;
+}
 
 std::string Monster::GetAppearanceDescription()
 {

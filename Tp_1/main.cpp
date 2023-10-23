@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Keeper.h"
 
-using namespace std;
-
 int main() {
     Keeper keeper;
 
@@ -14,8 +12,9 @@ int main() {
         std::cout << "4. Remove an object\n";
         std::cout << "5. Save to a file\n";
         std::cout << "6. Load from a file\n";
-        std::cout << "7. Display all objects\n";
-        std::cout << "8. Exit\n\n";
+        std::cout << "7. Display object\n";
+        std::cout << "8. Display all objects\n";
+        std::cout << "0. Exit\n\n";
         std::cout << ">> ";
 
         int choice;
@@ -47,6 +46,7 @@ int main() {
 
             Hero* obj = new Hero(name, weapon, skills, numSkills);
             keeper.AddObjectHero(obj);
+            system("Pause");
             break;
         }
         case 2: {
@@ -59,6 +59,7 @@ int main() {
 
             Monster* obj = new Monster(name, description);
             keeper.AddObjectMonster(obj);
+            system("Pause");
             break;
         }
         case 3: {
@@ -88,6 +89,7 @@ int main() {
 
             Villain* obj = new Villain(name, weapon, crime, location, skills, numSkills);
             keeper.AddObjectVillain(obj);
+            system("Pause");
             break;
         }
         case 4: {
@@ -114,12 +116,25 @@ int main() {
             system("Pause");
             break;
         }
-        case 7:
+        case 7: {
+            std::string name;
+            system("cls");
+            keeper.DisplayListOfObjects();
+            std::cout << "Enter the name of the object to display: ";
+            std::getline(std::cin, name);
+            std::cout << '\n';
+            keeper.DisplayOne(name);
+            system("Pause");
+            break;
+        }
+        case 8: {
             keeper.DisplayAll();
             system("Pause");
             break;
-        case 8:
+        }
+        case 0:
             return 0;
+
         default:
             std::cout << "Invalid choice. Please enter a valid option.\n";
             system("Pause");

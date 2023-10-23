@@ -9,9 +9,10 @@ BaseHero::BaseHero(const std::string& name, const std::string& weapon, const std
     for (int i = 0; i < numSkills; i++) {
         this->skills[i] = skills[i];
     }
+    std::cout << "BaseHero constructor called" << std::endl;
 }
 
-BaseHero::~BaseHero() { }
+BaseHero::~BaseHero() { std::cout << "BaseHero destructor called" << std::endl; }
 
 const std::string& BaseHero::GetName() const {
     return name;
